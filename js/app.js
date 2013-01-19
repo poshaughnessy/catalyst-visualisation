@@ -65,7 +65,7 @@
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
                 emissive: 0x222222} ));
 
-    var smallCube1OrigPos = new THREE.Vector3(20, 15, -10);
+    var smallCube1OrigPos = new THREE.Vector3(20, 10, -10);
 
     smallCube1.position.set( smallCube1OrigPos.x, smallCube1OrigPos.y, smallCube1OrigPos.z );
     smallCube1.rotation.y = Math.PI / 4;
@@ -73,7 +73,7 @@
     scene.add(smallCube1);
 
     var smallCube2 = new THREE.Mesh(
-            new THREE.CubeGeometry( 20, 20, 20 ),
+            new THREE.CubeGeometry( 15, 15, 15 ),
             new THREE.MeshLambertMaterial( {
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
                 emissive: 0x222222} ));
