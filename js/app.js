@@ -23,8 +23,9 @@
             10000         // zFar
     );
 
-    camera.position.y = 150;
-    camera.position.z = 250;
+    camera.position.x = -225;
+    camera.position.y = 120;
+    camera.position.z = 150;
 
     // Add it to the scene
     scene.add( camera );
@@ -38,6 +39,8 @@
     */
 
     var controls = new THREE.OrbitControls(camera);
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = -2.0;
 
     camera.lookAt(new THREE.Vector3(0,0,0));
 
@@ -122,7 +125,7 @@
     // Catalyst 'C'
 
     var cGeometry = new THREE.CubeGeometry(50, 5, 5);
-    var cMaterial = new THREE.MeshLambertMaterial({color: 0x40eda6, emissive: 0x40eda6});
+    var cMaterial = new THREE.MeshLambertMaterial({color: 0x48a85a  , emissive: 0x155228});
 
     var cBack = new THREE.Mesh(cGeometry, cMaterial);
     cBack.position.x = 25 * Math.cos(Math.PI / 4);
@@ -244,13 +247,7 @@
     */
 
 
-    // Make it spin
     function animate() {
-
-        // Angles are in radians
-        //cube.rotation.y += 0.1;
-
-        //controls.update(clock.getDelta());
 
         controls.update();
 
