@@ -23,7 +23,7 @@
             10000         // zFar
     );
 
-    camera.position.x = -225;
+    camera.position.x = -150;
     camera.position.y = 120;
     camera.position.z = 150;
 
@@ -65,7 +65,9 @@
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
                 emissive: 0x111111} ));
 
-    smallCube1.position.set(100, 100, 0);
+    var smallCube1OrigPos = new THREE.Vector3(20, 15, -10);
+
+    smallCube1.position.set( smallCube1OrigPos.x, smallCube1OrigPos.y, smallCube1OrigPos.z );
     smallCube1.rotation.y = Math.PI / 4;
 
     scene.add(smallCube1);
@@ -76,7 +78,9 @@
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
                 emissive: 0x111111} ));
 
-    smallCube2.position.set(-100, 85, 0);
+    var smallCube2OrigPos = new THREE.Vector3(0, -10, 10);
+
+    smallCube2.position.set( smallCube2OrigPos.x, smallCube2OrigPos.y, smallCube2OrigPos.z );
     smallCube2.rotation.y = Math.PI / 4;
 
     scene.add(smallCube2);
@@ -87,7 +91,9 @@
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
                 emissive: 0x111111} ));
 
-    smallCube3.position.set(-100, -50, 0);
+    var smallCube3OrigPos = new THREE.Vector3(-20, 15, -10);
+
+    smallCube3.position.set( smallCube3OrigPos.x, smallCube3OrigPos.y, smallCube3OrigPos.z );
     smallCube3.rotation.y = Math.PI / 4;
 
     scene.add(smallCube3);
@@ -187,69 +193,51 @@
     spotLight2.position.set( 0, 150, 0 ); // x, y, z
     spotLight2.target.position.set( 0, 0, 0 );
 
-    //scene.add( spotLight1 );
+    scene.add( spotLight1 );
     scene.add( spotLight2 );
 
 
-    // Lens flare test
-    /*
-    var textureFlare = THREE.ImageUtils.loadTexture( "img/lensflare.png" );
+    // Animation
 
-    addLight( 0.43, 0.73, 0.93, 10, 10, 0 );
+    var cube1Move = new TWEEN.Tween( smallCube1.position )
+            .to( { x: 500, y: 500 }, 11000 )
+            .easing( TWEEN.Easing.Quadratic.In )
+            .onComplete(function() {
+                smallCube1.position.set( smallCube1OrigPos.x, smallCube1OrigPos.y, smallCube1OrigPos.z );
+            });
 
-    function addLight( h, s, v, x, y, z ) {
+    cube1Move.chain( cube1Move );
+    cube1Move.start();
 
-        var light = new THREE.PointLight( 0xffffff, 1.5, 4500 );
-        light.position.set( x, y, z );
-        scene.add( light );
+    var cube2Move = new TWEEN.Tween( smallCube2.position )
+            .to( { x: -500, y: 500, z: 500 }, 13000 )
+            .easing( TWEEN.Easing.Quadratic.In )
+            .onComplete(function() {
+                smallCube2.position.set( smallCube2OrigPos.x, smallCube2OrigPos.y, smallCube2OrigPos.z );
+            });
 
-        light.color.setHSV( h, s, v );
+    cube2Move.chain( cube2Move );
 
-        var flareColor = new THREE.Color( 0xffffff );
-        flareColor.copy( light.color );
-        THREE.ColorUtils.adjustHSV( flareColor, 0, -0.5, 0.5 );
+    window.setTimeout(function() {
+        cube2Move.start();
+    }, 1500);
 
-        var lensFlare = new THREE.LensFlare( textureFlare, 700, 0.0, THREE.AdditiveBlending, flareColor );
+    var cube3Move = new TWEEN.Tween( smallCube3.position )
+            .to( { x: -500, y: -500, z: -200 }, 17000 )
+            .easing( TWEEN.Easing.Quadratic.In )
+            .onComplete(function() {
+                smallCube3.position.set( smallCube3OrigPos.x, smallCube3OrigPos.y, smallCube3OrigPos.z );
+            });
 
-        lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-        lensFlare.position = light.position;
-
-        scene.add( lensFlare );
-
-    }
-
-    function lensFlareUpdateCallback( object ) {
-
-        var f, fl = object.lensFlares.length;
-        var flare;
-        var vecX = -object.positionScreen.x * 2;
-        var vecY = -object.positionScreen.y * 2;
-
-
-        for( f = 0; f < fl; f++ ) {
-
-            flare = object.lensFlares[ f ];
-
-            flare.x = object.positionScreen.x + vecX * flare.distance;
-            flare.y = object.positionScreen.y + vecY * flare.distance;
-
-            flare.rotation = 0;
-
-        }
-
-    }
-
-    //
-
-    renderer.gammaInput = true;
-    renderer.gammaOutput = true;
-    renderer.physicallyBasedShading = true;
-    */
+    cube3Move.chain( cube3Move );
+    cube3Move.start();
 
 
     function animate() {
 
         controls.update();
+
+        TWEEN.update();
 
         // Re-render
         renderer.render(scene, camera);
