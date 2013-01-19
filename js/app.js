@@ -51,7 +51,7 @@
             new THREE.CubeGeometry( 50, 50, 50 ),
             new THREE.MeshLambertMaterial( {
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
-                emissive: 0x111111} ));
+                emissive: 0x222222} ));
 
     cube.position.set(1, 0, 2);
     cube.rotation.y = Math.PI / 4;
@@ -63,7 +63,7 @@
             new THREE.CubeGeometry( 10, 10, 10 ),
             new THREE.MeshLambertMaterial( {
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
-                emissive: 0x111111} ));
+                emissive: 0x222222} ));
 
     var smallCube1OrigPos = new THREE.Vector3(20, 15, -10);
 
@@ -76,7 +76,7 @@
             new THREE.CubeGeometry( 20, 20, 20 ),
             new THREE.MeshLambertMaterial( {
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
-                emissive: 0x111111} ));
+                emissive: 0x222222} ));
 
     var smallCube2OrigPos = new THREE.Vector3(0, -10, 10);
 
@@ -89,7 +89,7 @@
             new THREE.CubeGeometry( 10, 10, 10 ),
             new THREE.MeshLambertMaterial( {
                 map: THREE.ImageUtils.loadTexture('img/graphite.png'),
-                emissive: 0x111111} ));
+                emissive: 0x222222} ));
 
     var smallCube3OrigPos = new THREE.Vector3(-20, 15, -10);
 
@@ -102,7 +102,7 @@
     // Walls
 
     var wallGeometry = new THREE.PlaneGeometry(100, 100);
-    var wallMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('img/graphite.png'), emissive: 0x111111,
+    var wallMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('img/graphite.png'), emissive: 0x222222,
         side: THREE.DoubleSide});
 
     var wallLeft = new THREE.Mesh(wallGeometry, wallMaterial);
