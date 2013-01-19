@@ -1,7 +1,9 @@
 body {
-    background: #fff;
+    background: #000;
     font-family: 'Monda', sans-serif;
     font-size: 27px;
     line-height: 1.5em;
+    margin: 0;
+    overflow: hidden;
 }
 
