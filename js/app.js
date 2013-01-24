@@ -40,8 +40,8 @@
     */
 
     var controls = new THREE.OrbitControls(camera);
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = -2.0;
+    //controls.autoRotate = true;
+    //controls.autoRotateSpeed = -2.0;
 
     camera.lookAt(new THREE.Vector3(0,0,0));
 
@@ -250,5 +250,40 @@
 
     // Start animation going
     animate();
+
+    var firstValidFrame = null;
+    var cameraRadius = 250;
+    var rotateX = 0;
+    var rotateY = 0;
+
+    /* Leap Motion integration - based on code from Robbie Tilton */
+    Leap.loop(function(frame) {
+        if (frame.valid) {
+
+            if (!firstValidFrame) firstValidFrame = frame;
+            var t = firstValidFrame.translation(frame);
+
+            // Adjust spherical coordinates based on finger position
+            rotateX = map(t[0], 300, -300, 0, 360);
+            rotateY = -map(t[1], 200, -200, 0, 180);
+
+            camera.position.x = cube.position.x + cameraRadius * Math.sin(rotateY * Math.PI/180) * Math.cos(rotateX * Math.PI/180)
+            camera.position.z = cube.position.y + cameraRadius * Math.sin(rotateY * Math.PI/180) * Math.sin(rotateX * Math.PI/180)
+            camera.position.y = cube.position.z + cameraRadius * Math.cos(rotateY * Math.PI/180)
+        }
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+    });
+
+    function map(value, inputMin, inputMax, outputMin, outputMax){
+        var outVal = ((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin);
+        if(outVal >  outputMax){
+            outVal = outputMax;
+        }
+        if(outVal <  outputMin){
+            outVal = outputMin;
+        }
+        return outVal;
+    }
 
 })();
