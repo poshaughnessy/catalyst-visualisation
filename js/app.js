@@ -5,6 +5,7 @@
 
     // Create a WebGL renderer
     var renderer = new THREE.WebGLRenderer({ antialias: true });
+    //var renderer = new THREE.CSS3DRenderer();
 
     renderer.setSize( width, height );
 
